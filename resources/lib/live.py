@@ -9,12 +9,13 @@ from urllib.parse import quote
 
 from resources.lib.channels import Channels 
 from resources.lib.epg import get_live_epg, epg_listitem
-from resources.lib.utils import get_url
+from resources.lib.utils import get_url, get_kodi_version
 
 if len(sys.argv) > 1:
     _handle = int(sys.argv[1])
 
 def list_live(label):
+    kodi_version = get_kodi_version()
     addon = xbmcaddon.Addon()
     xbmcplugin.setPluginCategory(_handle, label)
     xbmcplugin.setContent(_handle, 'twshows')
@@ -31,7 +32,11 @@ def list_live(label):
                 list_item = epg_listitem(list_item = list_item, epg = epg_item, logo = None)
         else:
             list_item = xbmcgui.ListItem(label = channels_list[num]['name'])
-            list_item.setInfo('video', {'mediatype':'movie', 'title': channels_list[num]['name']}) 
+        if kodi_version >= 20:
+            infotag = list_item.getVideoInfoTag()
+            infotag.setMediaType('movie')
+        else:
+            list_item.setInfo('video', {'mediatype' : 'movie'})   
         list_item.setContentLookup(False)          
         list_item.setProperty('IsPlayable', 'true')
         url = get_url(action='play_live', id = channels_list[num]['id'], title = channels_list[num]['name'])

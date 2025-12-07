@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 from resources.lib.session import Session
 from resources.lib.api import API
 from resources.lib.epg import get_channel_epg
-from resources.lib.utils import get_api_url
+from resources.lib.utils import get_api_url, ua
 from resources.lib.channels import Channels
 
 if len(sys.argv) > 1:
@@ -46,6 +46,7 @@ def play_live(id):
         if 'drm' in response['data']['streams'][0]:
             list_item.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
             list_item.setProperty('inputstream.adaptive.license_key', 'https://drm.antik.sk/widevine/key||R{SSM}|')                
+            # list_item.setProperty('inputstream.adaptive.drm_legacy', 'com.widevine.alpha|https://drm.antik.sk/widevine/key|' + urlencode({'Content-Type' : 'application/octet-stream', 'User-Agent' : ua}))
         list_item.setContentLookup(False)       
         xbmcplugin.setResolvedUrl(_handle, True, list_item)
     else:

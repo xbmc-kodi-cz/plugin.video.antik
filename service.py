@@ -3,12 +3,13 @@ import sys
 import xbmcaddon
 import xbmc
 
-from datetime import datetime
+from datetime import datetime, timezone
 import time
 
 from resources.lib.iptvsc import generate_epg
 
-tz_offset = int((time.mktime(datetime.now().timetuple())-time.mktime(datetime.utcnow().timetuple()))/3600)
+tz_offset = int(datetime.now(timezone.utc).astimezone().utcoffset().total_seconds() / 3600)
+
 addon = xbmcaddon.Addon()
 if addon.getSetting('disabled_scheduler') == 'true':
     sys.exit()

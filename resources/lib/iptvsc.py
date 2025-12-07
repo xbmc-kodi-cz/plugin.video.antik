@@ -5,15 +5,14 @@ import xbmcgui
 import xbmcaddon
 import xbmcvfs
 
-from datetime import datetime
-import time
+from datetime import datetime, timezone
 from urllib.parse import quote
 
 from resources.lib.channels import Channels
 from resources.lib.utils import plugin_id, replace_by_html_entity
 from resources.lib.epg import get_channels_epg
 
-tz_offset = int((time.mktime(datetime.now().timetuple())-time.mktime(datetime.utcnow().timetuple()))/3600)
+tz_offset = int(datetime.now(timezone.utc).astimezone().utcoffset().total_seconds() / 3600)
 
 def save_file_test():
     addon = xbmcaddon.Addon()  
