@@ -1,5 +1,5 @@
 v1.1.1 (7.12.2025)
-- ostranění deprecated funkcí utcnow a setInfo
+- odstranění deprecated funkcí utcnow a setInfo
 
 v1.1.0 (27.10.2025)
 - oprava zobrazení archivu

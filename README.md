@@ -4,7 +4,7 @@
 <p>
 <a href="https://www.xbmc-kodi.cz/prispevek-antik-tv--13396">Vlákno na fóru XBMC-Kodi.cz</a><br><br>
 v1.1.1 (7.12.2025)<br>
-- ostranění deprecated funkcí utcnow a setInfo<br><br>
+- odstranění deprecated funkcí utcnow a setInfo<br><br>
 
 v1.1.0 (27.10.2025)<br>
 - oprava zobrazení archivu<br><br>

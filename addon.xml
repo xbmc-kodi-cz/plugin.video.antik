@@ -32,7 +32,7 @@ Další informace a podporu najdete na fóru www.xbmc-kodi.cz (https://www.xbmc-
     <source>https://github.com/waladir/plugin.video.antik</source>
     <news>
 v1.1.1 (7.12.2025)
-- ostranění deprecated funkcí utcnow a setInfo
+- odstranění deprecated funkcí utcnow a setInfo
 
 v1.1.0 (27.10.2025)
 - oprava zobrazení archivu
