@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import xbmcaddon
+
 from resources.lib.session import Session
 from resources.lib.channels import Channels
 from resources.lib.api import API
@@ -51,12 +53,15 @@ def get_channel_epg(id, from_ts, to_ts):
         return {}
 
 def get_channels_epg(channels):
+    addon = xbmcaddon.Addon()
+    epg_from = int(addon.getSetting('epg_from'))
+    epg_to = int(addon.getSetting('epg_to'))
     today_date = datetime.today() 
     today_start_ts = int(time.mktime(datetime(today_date.year, today_date.month, today_date.day) .timetuple()))
     session = Session()
     api = API()
     epg = []
-    for day in range(-7, 7, 1):
+    for day in range(-1*epg_from, epg_to, 1):
         try:
             post = {'date': datetime.fromtimestamp(today_start_ts + (day* 60*60*24)).strftime('%Y-%m-%d') ,'offset' : 0, 'limit': 200, 'filter' : channels, 'search' : ''}
             response = api.call_api(api = 'epg/channels', data = post, method = 'post', cookies = session.get_cookies())    

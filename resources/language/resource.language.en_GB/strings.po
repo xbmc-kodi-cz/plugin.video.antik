@@ -45,6 +45,14 @@ msgctxt "#30024"
 msgid "Generovať EPG"
 msgstr ""
 
+msgctxt "#30025"
+msgid "Počet dní pre sťahovanie EPG spätne"
+msgstr ""
+
+msgctxt "#30026"
+msgid "Počet dní pre sťahovanie EPG dopredu"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Logovanie"
 msgstr ""

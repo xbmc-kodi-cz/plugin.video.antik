@@ -7,6 +7,7 @@ import xbmcvfs
 
 from datetime import datetime, timezone
 from urllib.parse import quote
+from math import ceil
 
 from resources.lib.channels import Channels
 from resources.lib.utils import plugin_id, replace_by_html_entity
@@ -88,13 +89,12 @@ def generate_playlist(output_file = ''):
         file.close()
         xbmcgui.Dialog().notification('Antik TV', addon.getLocalizedString(300313), xbmcgui.NOTIFICATION_ERROR, 5000)
 
-def generate_epg(output_file = ''):
+def generate_epg(output_file = '', show_progress = True):
     addon = xbmcaddon.Addon()
     channels_ids = []
     channels = Channels()
     channels_list = channels.get_channels_list('channel_number', visible_filter = False)
     channels_list_by_id = channels.get_channels_list('id', visible_filter = False)
-
     if len(channels_list) > 0:
         if save_file_test() == 0:
             xbmcgui.Dialog().notification('Antik TV', addon.getLocalizedString(300315), xbmcgui.NOTIFICATION_ERROR, 5000)
@@ -125,9 +125,14 @@ def generate_epg(output_file = ''):
                     content = content + '            <icon src="' + logo + '" />\n'
                     content = content + '    </channel>\n'
                 file.write(bytearray((content).encode('utf-8')))
+                if show_progress == True:
+                    dialog = xbmcgui.DialogProgressBG()
+                    dialog.create('Stahování EPG dat')
                 for i in range(0, len(channels_ids), 10):
                     cnt = 0
                     content = ''
+                    if show_progress == True:
+                        dialog.update(int(i/len(channels_ids)*100))
                     epg = get_channels_epg(channels = channels_ids[i:i+10])
                     for epg_item in epg:
                         starttime = datetime.fromtimestamp(epg_item['startts']).strftime('%Y%m%d%H%M%S')
@@ -148,9 +153,13 @@ def generate_epg(output_file = ''):
                     file.write(bytearray((content).encode('utf-8')))                          
                 file.write(bytearray(('</tv>\n').encode('utf-8')))
                 file.close()
+                if show_progress == True:
+                    dialog.close()
                 xbmcgui.Dialog().notification('Antik TV', addon.getLocalizedString(300316), xbmcgui.NOTIFICATION_INFO, 5000)    
         except Exception:
             file.close()
+            if show_progress == True:
+                dialog.close()
             xbmcgui.Dialog().notification('Antik TV', addon.getLocalizedString(300315), xbmcgui.NOTIFICATION_ERROR, 5000)
             sys.exit()
     else:

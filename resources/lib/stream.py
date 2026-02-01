@@ -5,11 +5,12 @@ import xbmcplugin
 import xbmcaddon
 
 from urllib.parse import urlencode
+import json
 
 from resources.lib.session import Session
 from resources.lib.api import API
 from resources.lib.epg import get_channel_epg
-from resources.lib.utils import get_api_url, ua
+from resources.lib.utils import get_api_url, get_isa_version, get_kodi_version, ua
 from resources.lib.channels import Channels
 
 if len(sys.argv) > 1:
@@ -25,6 +26,8 @@ def play_catchup(id, start_ts, end_ts):
         play_live(id = id)
 
 def play_live(id):
+    isa = get_isa_version()
+    kodi = get_kodi_version()
     addon = xbmcaddon.Addon()
     session = Session()
     api = API()
@@ -38,21 +41,30 @@ def play_live(id):
         if response['data']['streams'][0]['playlist'] == 'm3u8':
             if 'radio' not in channels_list[id] or channels_list[id]['radio'] == 0:
                 list_item.setProperty('inputstream', 'inputstream.adaptive')
-                list_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+                if kodi<21:
+                    list_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
         else:
             list_item.setProperty('inputstream', 'inputstream.adaptive')
-            list_item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
+            if kodi<21:
+                list_item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
             list_item.setMimeType('application/dash+xml')
         if 'drm' in response['data']['streams'][0]:
-            list_item.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
-            list_item.setProperty('inputstream.adaptive.license_key', 'https://drm.antik.sk/widevine/key||R{SSM}|')                
-            # list_item.setProperty('inputstream.adaptive.drm_legacy', 'com.widevine.alpha|https://drm.antik.sk/widevine/key|' + urlencode({'Content-Type' : 'application/octet-stream', 'User-Agent' : ua}))
+            drm_headers = urlencode({'Content-Type' : 'application/octet-stream', 'User-Agent' : ua})
+            if isa >= 22:
+                list_item.setProperty('inputstream.adaptive.drm', json.dumps({'com.widevine.alpha' : {'license' : {'server_url' : 'https://drm.antik.sk/widevine/key', 'req_headers': drm_headers}}}))
+            elif isa >= 21.5:
+                list_item.setProperty('inputstream.adaptive.drm_legacy', 'com.widevine.alpha|https://drm.antik.sk/widevine/key|' + drm_headers)
+            else:
+                list_item.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+                list_item.setProperty('inputstream.adaptive.license_key', 'https://drm.antik.sk/widevine/key||R{SSM}|')                
+
         list_item.setContentLookup(False)       
         xbmcplugin.setResolvedUrl(_handle, True, list_item)
     else:
         xbmcgui.Dialog().notification('Antik TV', addon.getLocalizedString(300218), xbmcgui.NOTIFICATION_ERROR, 5000)
 
 def play_archive(id, start, stop):
+    kodi = get_kodi_version()
     addon = xbmcaddon.Addon()
     session = Session()
     api = API()
@@ -66,7 +78,8 @@ def play_archive(id, start, stop):
         if 'radio' not in channels_list[id] or channels_list[id]['radio'] == 0:
             list_item.setProperty('inputstream', 'inputstream.adaptive')
             list_item.setProperty('inputstream.adaptive.manifest_headers', 'cookie=' + urlencode(session.get_cookies()))
-            list_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+            if kodi < 21:
+                list_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
         list_item.setContentLookup(False)       
         xbmcplugin.setResolvedUrl(_handle, True, list_item)
     else:

@@ -32,6 +32,18 @@ def get_url(**kwargs):
 def get_kodi_version():
     return int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0])
 
+def get_isa_version():
+    version = 0
+    if xbmc.getCondVisibility('System.HasAddon(inputstream.adaptive)') == 1:
+        addon = xbmcaddon.Addon('inputstream.adaptive')
+        parts = addon.getAddonInfo('version').split('.')
+        if len(parts) > 0:
+            if len(parts) > 1:
+                version = float(parts[0] + '.' + parts[1])
+            else:
+                version = float(parts[0])
+    return version
+
 # kod od listenera
 def getNumbers(txt):
     newstr = ''.join((ch if ch in '0123456789' else ' ') for ch in txt)

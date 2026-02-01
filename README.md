@@ -3,6 +3,11 @@
 <h3>Kodi doplněk pro Antik TV (CZ i SK)</h3>
 <p>
 <a href="https://www.xbmc-kodi.cz/prispevek-antik-tv--13396">Vlákno na fóru XBMC-Kodi.cz</a><br><br>
+
+v1.1.2 (1.2.2026)<br>
+- zobrazení progresu při manuálním generování EPG<br>
+- možnost nastavit kolik pro kolik dnů zpětně a dopředu se má EPG stahovat<br><br>
+
 v1.1.1 (7.12.2025)<br>
 - odstranění deprecated funkcí utcnow a setInfo<br><br>
 
@@ -16,7 +21,4 @@ v1.0.9 (27.10.2025)<br>
 
 v1.0.8 (9.9.2025)<br>
 - přidání rádií (nutno povolit v nastavení)<br><br>
-
-v1.0.7 (8.6.2025)<br>
-- přidání podpory Picons Serveru<br><br>
 </p>

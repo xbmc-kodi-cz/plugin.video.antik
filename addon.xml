@@ -31,6 +31,10 @@ Další informace a podporu najdete na fóru www.xbmc-kodi.cz (https://www.xbmc-
     <platform>all</platform>
     <source>https://github.com/waladir/plugin.video.antik</source>
     <news>
+v1.1.2 (1.2.2026)
+- zobrazení progresu při manuálním generování EPG
+- možnost nastavit kolik pro kolik dnů zpětně a dopředu se má EPG stahovat
+
 v1.1.1 (7.12.2025)
 - odstranění deprecated funkcí utcnow a setInfo
 
@@ -44,9 +48,6 @@ v1.0.9 (27.10.2025)
 
 v1.0.8 (9.9.2025)
 - přidání rádií (nutno povolit v nastavení)
-
-v1.0.7 (8.6.2025)
-- přidání podpory Picons Serveru
    </news>
     <assets>
         <icon>icon.jpg</icon>
