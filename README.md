@@ -4,6 +4,9 @@
 <p>
 <a href="https://www.xbmc-kodi.cz/prispevek-antik-tv--13396">Vlákno na fóru XBMC-Kodi.cz</a><br><br>
 
+v1.1.3 (17.4.2026)<br>
+- ošetření chyby v EPG datech<br><br>
+
 v1.1.2 (1.2.2026)<br>
 - zobrazení progresu při manuálním generování EPG<br>
 - možnost nastavit kolik pro kolik dnů zpětně a dopředu se má EPG stahovat<br><br>
@@ -18,7 +21,4 @@ v1.0.9 (27.10.2025)<br>
 - oprava překladu<br>
 - ošetření chyb při stahování EPG + přidání pauzy mezi volání API<br>
 - zohlednění počtu dní, pro které má kanál dostupný archiv<br><br>
-
-v1.0.8 (9.9.2025)<br>
-- přidání rádií (nutno povolit v nastavení)<br><br>
 </p>

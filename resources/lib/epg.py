@@ -70,7 +70,7 @@ def get_channels_epg(channels):
                     for item in channel['epg']:
                         startts = int(datetime.fromisoformat(item['Start']).timestamp())
                         endts = int(datetime.fromisoformat(item['Stop']).timestamp())
-                        epg.append({'id' : item['SeriesID'], 'title' : item['Title'], 'channel_id' : item['Channel'], 'description' : item['Description'], 'startts' : startts, 'endts' : endts, 'start' : item['Start'], 'stop' : item['Stop'], 'genres' : item['Genres']})
+                        epg.append({'id' : item['SeriesID'], 'title' : item['Title'], 'channel_id' : item['Channel'], 'description' : str(item['Description']), 'startts' : startts, 'endts' : endts, 'start' : item['Start'], 'stop' : item['Stop'], 'genres' : item['Genres']})
             time.sleep(1)
         except Exception:
             pass

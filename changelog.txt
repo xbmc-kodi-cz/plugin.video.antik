@@ -1,3 +1,6 @@
+v1.1.3 (17.4.2026)
+- ošetření chyby v EPG datech
+
 v1.1.2 (1.2.2026)
 - zobrazení progresu při manuálním generování EPG
 - možnost nastavit kolik pro kolik dnů zpětně a dopředu se má EPG stahovat
@@ -12,6 +15,3 @@ v1.0.9 (27.10.2025)
 - oprava překladu
 - ošetření chyb při stahování EPG + přidání pauzy mezi volání API
 - zohlednění počtu dní, pro které má kanál dostupný archiv
-
-v1.0.8 (9.9.2025)
-- přidání rádií (nutno povolit v nastavení)
