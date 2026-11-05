@@ -1,3 +1,6 @@
+v1.1.9 (5.11.2026)
+- oprava přehrávání archivu
+
 v1.1.8 (13.10.2026)
 - úprava posílání cookies (Kodi 22)
 
@@ -9,6 +12,3 @@ v1.1.6 (17.7.2026)
 
 v1.1.5 (16.7.2026)
 - upravené přehrávání streamů
-
-v1.1.4 (30.5.2026)
-- možnost výběru kvality streamu pro živé vysílání (Grolicek)
